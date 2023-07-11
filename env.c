@@ -91,7 +91,7 @@ char	*get_env_value(char *var)
 		return (NULL);
 	if (!ft_strcmp(var, "?"))
 	{
-		free (var);
+		//free (var);
 		return (ft_itoa(g_vars->status));
 	}
 	while (tmp)

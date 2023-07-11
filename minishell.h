@@ -209,5 +209,5 @@ void		update_last_cmd(char *last_cmd);
 void		check_exit_status(int *status, t_cmd *cmd);
 int			xpnd(char **del);
 void		free_two(char ***del, char **line, char **joined);
-
+void		disable_ctrl_c_slash(void);
 #endif

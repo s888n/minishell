@@ -16,9 +16,10 @@ char	*ft_cpy_new_line(char *cmd, char *var_env, char *new, int i)
 {
 	int	k;
 	int	j;
-
+	char *var;
 	k = 0;
 	j = 0;
+	var = extract_var(cmd, i);
 	while (new[j])
 		j++;
 	while (var_env && var_env[k])
@@ -27,14 +28,15 @@ char	*ft_cpy_new_line(char *cmd, char *var_env, char *new, int i)
 		j++;
 		k++;
 	}
-	k = i + ft_strlen_var(cmd, i);
-	while (cmd[k] && cmd)
+	k = i + 1 + ft_strlen(var);
+	while (cmd[k])
 	{
 		new[j] = cmd[k];
 		j++;
 		k++;
 	}
 	new[j] = '\0';
+	free(var);
 	free (cmd);
 	return (new);
 }
@@ -58,6 +60,8 @@ char	*copy_value(char *cmd, char *var_env, char *var, int i)
 	}
 	new[j] = '\0';
 	new = ft_cpy_new_line(cmd, var_env, new, i);
+	if (!ft_strcmp(var, "?"))
+		free (var_env);
 	free (var);
 	return (new);
 }
@@ -66,23 +70,22 @@ char	*extract_var(char *s, int index)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*var;
 
-	i = index + 1;
-	if (s[i] == '?')
-		return (ft_strdup("?"));
-	else
-		i = var_len (s, i);
+	k = index + 1;
+	i = var_len (s, index + 1);
+	printf("i = %d\n", i);
 	var = malloc(sizeof(char) * (i + 1));
 	if (!var)
 		return (NULL);
-	i = index + 1;
+	i += k;
 	j = 0;
-	while (s[i] && valid_var(s[i]) && s[i] != '$')
+	while (s[k] && k < i && s[k] != '$')
 	{
-		var[j] = s[i];
+		var[j] = s[k];
 		j++;
-		i++;
+		k++;
 	}
 	var[j] = '\0';
 	return (var);
@@ -123,6 +126,7 @@ char	*expand(char *s)
 				&& (valid_var(s[i + 1])))
 		{
 			var = extract_var(s, i);
+			printf("var = %s\n", var);
 			value = get_env_value(var);
 			var = copy_value(s, value, var, i);
 			if (more_vars(var))

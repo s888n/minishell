@@ -20,11 +20,27 @@ int	valid_var(char c)
 }
 
 /*counts the lenght of the word after '$' */
-int	var_len(char *s, int i)
+// int	var_len(char *s, int i)
+// {
+// 	while (s[i] && valid_var(s[i]) && s[i] != '$')
+// 		i++;
+// 	return (i);
+// }
+int	var_len(char *token, int i)
 {
-	while (s[i] && valid_var(s[i]) && s[i] != '$')
+	int	name_len;
+
+	if (token[i] == '?')
+		return (1);
+	if (!ft_isalpha(token[i]) && token[i] != '_')
+		return (1);
+	name_len = 0;
+	while (ft_isalpha(token[i]) || token[i] == '_')
+	{
 		i++;
-	return (i);
+		name_len++;
+	}
+	return (name_len);
 }
 
 int	ft_strlen_var(char *str, int j)

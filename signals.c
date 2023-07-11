@@ -25,9 +25,9 @@ static void	signal_handler(int signal)
 {
 	(void)signal;
 	ft_putstr_fd("\n\033[1m\033[36mminishell$ \033[0m", STDOUT_FILENO);
-	rl_on_new_line();
+	//rl_on_new_line();
 	//rl_replace_line("", 0);
-	rl_redisplay();
+	//rl_redisplay();
 	g_vars->status = 1;
 }
 
@@ -39,7 +39,26 @@ void	main_signal(void)
 	g_vars->status = 1;
 }
 
-void	child_signal(void)
+void disable_ctrl_c_slash(void)
+{
+  struct termios term;
+
+  if (tcgetattr(fileno(stdin), &term) == -1)
+  {
+    perror("tcgetattr");
+    exit(1);
+  }
+  term.c_lflag &= ~ECHOCTL;
+
+  if (tcsetattr(fileno(stdin), TCSANOW, &term) == -1)
+  {
+    perror("tcsetattr");
+    exit(1);
+  }
+}
+
+
+void	child_and_heredoc_signal(void)
 {
 	if (signal(SIGINT, SIG_DFL) == SIG_ERR \
 			|| signal(SIGQUIT, SIG_DFL) == SIG_ERR)

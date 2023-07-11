@@ -41,6 +41,7 @@ void	init_g_var(char **env)
 	g_vars->env = get_env (env);
 	g_vars->status = 0;
 	shlvl ();
+	disable_ctrl_c_slash();
 	main_signal ();
 }
 
