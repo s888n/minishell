@@ -19,7 +19,6 @@ char	*ft_cpy_new_line(char *cmd, char *var_env, char *new, int i)
 	char *var;
 	k = 0;
 	j = 0;
-	printf("new = %s\n", new);
 	var = extract_var(cmd, i);
 	while (new[j])
 		j++;
@@ -128,7 +127,6 @@ char	*expand(char *s)
 			var = extract_var(s, i);
 			value = get_env_value(var);
 			var = copy_value(s, value, var, i);
-			printf("var = %s\n", var);
 			if (more_vars(var))
 				var = expand(var);
 			return (var);

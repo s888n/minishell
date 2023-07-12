@@ -41,7 +41,6 @@ void	fill_command(char *s, t_cmd *command)
 	err2 = redir_output(tmp, command, NULL, 0);
 	tmp = remove_brackets(tmp);
 	expanded = expand(tmp);
-	printf("expanded: %s\n", expanded);
 	if ((err1 == -1 && err2 == -1) || err1 == -2)
 	{
 		fill_err(command);

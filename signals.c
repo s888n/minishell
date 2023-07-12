@@ -38,8 +38,8 @@ void	main_signal(void)
 		my_error("signal:", strerror(errno));
 	g_vars->status = 1;
 }
-
-void disable_ctrl_c_slash(void)
+/*[from SALAH ]:thsi function is used to disable ctrl + c and works along rl_replace_line("", 0) and rl_redisplay() ;REMEMBER TO ENABLE IT BACK */
+void disable_ctrl(void)
 {
   struct termios term;
 
@@ -54,6 +54,23 @@ void disable_ctrl_c_slash(void)
   {
     perror("tcsetattr");
     exit(1);
+  }
+}
+void disable_ctrl2(void)
+{
+  struct termios term;
+
+  if (tcgetattr(fileno(stdin), &term) == -1)
+  {
+	perror("tcgetattr");
+	exit(1);
+  }
+  term.c_lflag |= ECHOCTL;
+
+  if (tcsetattr(fileno(stdin), TCSANOW, &term) == -1)
+  {
+	perror("tcsetattr");
+	exit(1);
   }
 }
 
