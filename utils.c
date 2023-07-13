@@ -65,7 +65,7 @@ char	*remove_quotes(char *str)
 
 void	end_it(void)
 {
-	//clear_history();
+	clear_history();
 	free_env_list(g_vars->env);
 	free(g_vars);
 	ft_putstr_fd("exit\n", STDOUT_FILENO);

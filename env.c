@@ -68,6 +68,8 @@ t_env	*get_env(char **env)
 	e = NULL;
 	arr = NULL;
 	i = -1;
+	if(!env)
+		add_node(&e, create_node(ft_strdup("PWD"), getcwd(NULL, 0)));
 	while (env[++i])
 	{
 		arr = ft_split(env[i], '=');
@@ -90,10 +92,7 @@ char	*get_env_value(char *var)
 	if (!tmp)
 		return (NULL);
 	if (!ft_strcmp(var, "?"))
-	{
-		//free (var);
 		return (ft_itoa(g_vars->status));
-	}
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->var, var))

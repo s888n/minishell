@@ -42,7 +42,7 @@ void	ft_exit(t_cmd *cmd)
 	}
 	else if (cmd->argv[1] && !is_digit(cmd->argv[1]))
 	{
-		exit_err(cmd->argv[1], ": numeric argument required", 255);
+		exit_err(cmd->argv[1], ": numeric argument required\n", 255);
 		exit(g_vars->status);
 	}
 	else if (cmd->argv[2])

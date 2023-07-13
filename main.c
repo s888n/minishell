@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <termios.h>
 
 void	add_to_history(char *line)
 {

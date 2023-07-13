@@ -194,6 +194,7 @@ char		*remove_brackets(char *s);
 /*signals*/
 void		set_signal(int mode);
 void		disable_ctrl(int mode);
+char		**no_env(void);
 /*split_args.c*/
 int			count_args(char *line);
 int			arg_len(char *line);
