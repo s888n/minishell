@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 03:47:32 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/07/06 05:01:09 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:53 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	contain_char(char *s, char c)
 
 void	execute_chiled(int pipefd[2], t_cmd *cmd, char *err)
 {
-	if (!cmd->argv[0])
+	if (cmd->argv[0] == NULL)
 		exit(0);
 	err = cmd->argv[0];
 	dup2(pipefd[1], STDOUT_FILENO);
@@ -35,11 +35,15 @@ void	execute_chiled(int pipefd[2], t_cmd *cmd, char *err)
 	close_fd(pipefd);
 	if (!cmd->next && !cmd->out)
 		dup2(g_vars->out, STDOUT_FILENO);
-	if (is_builtin(cmd->argv[0]))
+	if (is_builtin(*cmd->argv))
+	{
 		exec_builtin(cmd);
+		exit(g_vars->status);
+	}
 	ft_getcmd(cmd->argv, get_env_value("PATH"));
 	execve(cmd->argv[0], cmd->argv, lst_to_arr_env(g_vars->env));
 	ft_error(cmd->argv[0], err);
+
 }
 
 void	free_cmd(t_cmd *cmd)
@@ -94,5 +98,6 @@ void	exec_builtin(t_cmd *cmd)
 		unset(cmd);
 	else if (!ft_strcmp(cmd->argv[0], "env"))
 		env();
-	exit(g_vars->status);
+	else if (!ft_strcmp(cmd->argv[0], "exit"))
+		ft_exit(cmd);
 }

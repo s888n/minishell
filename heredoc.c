@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srachdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 19:51:09 by srachdi           #+#    #+#             */
-/*   Updated: 2023/07/07 10:28:16 by srachdi          ###   ########.fr       */
+/*   Updated: 2023/07/13 11:21:03 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*heredoc(char **del, t_cmd *cmd)
 	line = NULL;
 	joined = NULL;
 	free_two(&del, &line, &joined);
-	free_array(del);
+	free_2d_arr(del);
 	cmd->heredoc = 1;
 	return (joined);
 }

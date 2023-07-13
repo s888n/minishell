@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:55:26 by aoutifra          #+#    #+#             */
-/*   Updated: 2023/07/07 10:48:19 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:45:08 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_getcmd(char **cmd, char *path)
 
 	command = *cmd;
 	i = 0;
-	if (*cmd && strrchr(*cmd, '/'))
+	if (*cmd && ft_strrchr(*cmd, '/'))
 		return ;
 	pathsplited = ft_split(path, ':');
 	while (pathsplited[i])
@@ -37,6 +37,7 @@ void	ft_getcmd(char **cmd, char *path)
 		free(*cmd);
 		i++;
 	}
+	*cmd = command;
 	free_2d_arr(pathsplited);
 }
 
@@ -87,33 +88,44 @@ void	ft_error(char *cmd, char *err)
 	}
 	else
 		printf("minishell %s: %s \n", err, (char *)(strerror(errno)));
-	exit(errno);
+		exit(errno);
 }
 
-void	execute(t_cmd *cmd)/*cat <Makefile | >gg SEGFAULT !!!!!!*/ 
+void	execute(t_cmd *cmd)
 {
 	int		pipefd[2];
 	int		pid;
 	char	*err;
-	int		status;
+	int		status = 0;
 
 	err = 0;
-	while (cmd)
+
+	if (cmd && !cmd->next && is_builtin(*cmd->argv))
 	{
-		if (cmd->argv[0] && !ft_strncmp(cmd->argv[0], "exit", 4))
-			ft_exit(cmd);
+		exec_builtin(cmd);
+		update_last_cmd(ft_strdup(cmd->argv[0]));
+		return;
+	}
+	while (cmd && *cmd->argv)
+	{
 		pipe(pipefd);
 		pid = fork();
 		if (pid < 0)
 			exit(EXIT_FAILURE);
 		if (pid == 0)
 			execute_chiled(pipefd, cmd, err);
-		dup2(pipefd[0], 0);
+		dup2(pipefd[0], STDIN_FILENO);
 		close_fd(pipefd);
-		waitpid(pid, &status, 0);
-		check_exit_status(&status, cmd);
+		check_exit_status(cmd);
 		cmd = cmd->next;
+	}	
+	while (waitpid(-1, &status, 0) != -1)
+	{
+		if (WIFEXITED(status) && WEXITSTATUS(status) != 2)
+			g_vars->status = WEXITSTATUS(status);
+		if (WIFEXITED(status) == 0)
+			g_vars->status = 130;
 	}
-	dup2(g_vars->out, STDOUT_FILENO);
 	dup2(g_vars->in, STDIN_FILENO);
+	dup2(g_vars->out, STDOUT_FILENO);
 }

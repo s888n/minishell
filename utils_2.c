@@ -6,7 +6,7 @@
 /*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 19:48:29 by srachdi           #+#    #+#             */
-/*   Updated: 2023/07/07 10:44:10 by aoutifra         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:22:42 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	free_two(char ***del, char **line, char **joined)
 			*line = expand(*line);
 		line_nl = ft_strjoin(*line, "\n");
 		if (!ft_strcmp(*line, **del))
-			return (free(*line), free(line_nl));
+			{
+				free(*line), free(line_nl);
+				break;
+			}
 		if (**del)
 			*joined = store_line(*joined, line_nl);
 		free (*line);
