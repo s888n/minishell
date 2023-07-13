@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_command_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srachdi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aoutifra <aoutifra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:52:32 by srachdi           #+#    #+#             */
-/*   Updated: 2023/06/25 18:57:37 by srachdi          ###   ########.fr       */
+/*   Updated: 2023/07/13 11:38:00 by aoutifra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ char	*skip_space(char *s)
 
 void	fill_err(t_cmd *cmd)
 {
-	cmd->argv = malloc(2 * sizeof(char *));
-	cmd->argv[0] = malloc(2);
-	cmd->argv[1] = NULL;
-	cmd->argv[0][0] = 1;
-	cmd->argv[0][1] = 0;
 	cmd->heredoc = 0;
 	if (cmd->in)
 		free (cmd->in);
