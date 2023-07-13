@@ -90,7 +90,7 @@ void	ft_error(char *cmd, char *err)
 	exit(errno);
 }
 
-void	execute(t_cmd *cmd)
+void	execute(t_cmd *cmd)/*cat <Makefile | >gg SEGFAULT !!!!!!*/ 
 {
 	int		pipefd[2];
 	int		pid;

@@ -20,7 +20,7 @@ PINK	=	\033[35m
 WHITE	=	\033[37m
 BOLD	=	\033[1m
 RESET	=	\033[0m
-READLINE = -lreadline #-L /Users/$(USER)/.brew/opt/readline/lib  -I /Users/$(USER)/.brew/opt/readline/include
+READLINE = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib  -I /Users/$(USER)/.brew/opt/readline/include
 $(NAME): libft $(OBJS)
 	@echo "$(GREEN) $(BOLD) making minishell ... $(RESET)"
 	@$(CC) $(CFLAGS) $(READLINE)  $(OBJS) $(LIBFT)libft.a -o $@
@@ -28,7 +28,7 @@ $(NAME): libft $(OBJS)
 
 $(OBJ_DIR)/%.o: %.c $(INC)
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -c $< -o $@ -I/Users/aoutifra/.brew/opt/readline/include
+	@$(CC) $(CFLAGS) -c $< -o $@ -I/$(USER)/.brew/opt/readline/include
 
 libft:
 	@echo "$(WHITE) $(BOLD) making libft ... $(RESET)"

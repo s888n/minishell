@@ -41,8 +41,8 @@ void	init_g_var(char **env)
 	g_vars->env = get_env (env);
 	g_vars->status = 0;
 	shlvl ();
-	disable_ctrl();
-	main_signal ();
+	disable_ctrl(0);
+	set_signal(0);
 }
 
 void	minishell(void)

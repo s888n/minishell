@@ -33,7 +33,7 @@ void	check_exit_status(int *status, t_cmd *cmd)
 		g_vars->status = 130;
 	if (g_vars->status == 0)
 	{
-		if (!is_builtin(cmd->argv[0]))
+		if (cmd->argv[0] && !is_builtin(cmd->argv[0]))
 			ft_getcmd(cmd->argv, get_env_value("PATH"));
 		update_last_cmd(ft_strdup(cmd->argv[0]));
 	}

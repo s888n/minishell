@@ -30,8 +30,8 @@ void	execute_chiled(int pipefd[2], t_cmd *cmd, char *err)
 	if (!cmd->argv[0])
 		exit(0);
 	err = cmd->argv[0];
-	check_fd(cmd, pipefd);
 	dup2(pipefd[1], STDOUT_FILENO);
+	check_fd(cmd, pipefd);
 	close_fd(pipefd);
 	if (!cmd->next && !cmd->out)
 		dup2(g_vars->out, STDOUT_FILENO);

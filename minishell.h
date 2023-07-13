@@ -192,8 +192,8 @@ int			redir_output(char *s, t_cmd *command, char *path, int n);
 void		i_after_w(char *buff, int *i);
 char		*remove_brackets(char *s);
 /*signals*/
-void		main_signal(void);
-void		child_signal(void);
+void		set_signal(int mode);
+void		disable_ctrl(int mode);
 /*split_args.c*/
 int			count_args(char *line);
 int			arg_len(char *line);
@@ -209,5 +209,4 @@ void		update_last_cmd(char *last_cmd);
 void		check_exit_status(int *status, t_cmd *cmd);
 int			xpnd(char **del);
 void		free_two(char ***del, char **line, char **joined);
-void		disable_ctrl(void);
 #endif

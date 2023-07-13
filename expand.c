@@ -6,7 +6,7 @@
 /*   By: srachdi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 18:18:28 by srachdi           #+#    #+#             */
-/*   Updated: 2023/07/07 09:41:47 by srachdi          ###   ########.fr       */
+/*   Updated: 2023/07/13 01:44:24 by srachdi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 char	*ft_cpy_new_line(char *cmd, char *var_env, char *new, int i)
 {
-	int	k;
-	int	j;
-	char *var;
+	int		k;
+	int		j;
+	char	*var;
+
 	k = 0;
 	j = 0;
 	var = extract_var(cmd, i);

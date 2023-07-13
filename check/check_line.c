@@ -6,7 +6,7 @@
 /*   By: srachdi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 23:20:28 by srachdi           #+#    #+#             */
-/*   Updated: 2023/07/04 23:21:02 by srachdi          ###   ########.fr       */
+/*   Updated: 2023/07/13 01:40:23 by srachdi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,6 @@ int	is_q(char c)
 		return (1);
 	return (0);
 }
-// void print_tkn(t_tkn *head)
-// {
-// 	while (head)
-// 	{
-// 		printf("token : %s\n", head->token);
-// 		printf("type : %d\n", head->type);
-// 		head = head->next;
-// 	}
-// }
 
 int	check_line(char *line)
 {
@@ -81,7 +72,6 @@ int	check_line(char *line)
 		return (0);
 	}
 	lst = tkn_it(arr);
-	//print_tkn(lst);
 	if (!check_tkns(lst))
 	{
 		g_vars->status = SYNTAX_ERR;
