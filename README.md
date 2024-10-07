@@ -1,6 +1,7 @@
 # Minishell
 
-Minishell is A lightweight Bash alternative in pure C, prioritizing simplicity, stability, and performance.
+**Minishell is A lightweight Bash alternative in pure C, prioritizing simplicity, stability, and performance.**
+
 <img width="702" alt="mini" src="https://github.com/user-attachments/assets/f5777997-7b85-4355-a449-8d4bf1091838">
 
 ## Features
