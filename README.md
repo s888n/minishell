@@ -21,6 +21,8 @@
 - A Unix-like operating system
 - GCC (GNU Compiler Collection)
 - Readline library
+- Make
+
 ### Installation
 
 1. Clone the repository:
